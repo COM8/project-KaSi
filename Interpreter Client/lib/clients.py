@@ -17,7 +17,8 @@ class client(object):
 
     def CheckIP(self):
         try:
-            s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+            with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as s:
+                pass
             return True
         except OSError:
             return False
@@ -43,7 +44,6 @@ class client(object):
             self.theLog.printMessage("Sending: " + theOrder + "@" + self.__theName + ": " + self.__theAddress)
             theMessage = ""
             s.settimeout(0.01)
-            durchläufe = 0
             startTime=datetime.now()
             while (datetime.now()-startTime).seconds<=1:
                 try:

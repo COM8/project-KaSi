@@ -12,13 +12,14 @@ from lib.groups import group
 from lib.log import log
 from os import cpu_count
 
+
 class ProjektKaSi():
     mainLog = log("client.log", True)
     __theGrous = []
     __theClients = []
     __clientSelected = False
     __groupSelected = False
-    selectedID = 0	
+    selectedID = 0
 
     def __init__(self):
         self.mainLog.printMessage("Starte Client")
@@ -42,12 +43,13 @@ class ProjektKaSi():
             self.mainLog.printWarning("System is going to halt now")
             print("System is going to halt now")
             exit()
+
     def configEditor(self):
         import editConfig
         self.__theGrous.clear()
         self.__theClients.clear()
         self.readConfig()
-        
+
     def getClientAmount(self):
         return len(self.__theClients)
 
@@ -90,7 +92,8 @@ class ProjektKaSi():
                 self.createFolder("config\\")
                 File = open('config\\clients.config', 'a')
                 File.close()
-                messagebox.showinfo("Missing config", "No config Found. Createt an empty one")
+                messagebox.showinfo(
+                    "Missing config", "No config Found. Createt an empty one")
                 window.destroy()
                 return
         else:
@@ -102,7 +105,8 @@ class ProjektKaSi():
                 self.createFolder("config/")
                 File = open('config/clients.config', 'a')
                 File.close()
-                messagebox._show("Missing config", "No config Found. Created an empty one")
+                messagebox._show("Missing config",
+                                 "No config Found. Created an empty one")
                 window.destroy()
                 return
         theConfig = theconfigFile.read().splitlines()
@@ -129,8 +133,10 @@ class ProjektKaSi():
         return len(self.__theGrous)
 
     def addGroupClient(self, roupID, clientName, clientAddress):
-        self.__theClients.append(client(clientName, len(self.__theGrous) - 1, clientAddress, self.mainLog))
-        self.__theGrous[len(self.__theGrous) - 1].addClient(self.__theClients[len(self.__theClients) - 1])
+        self.__theClients.append(client(clientName, len(
+            self.__theGrous) - 1, clientAddress, self.mainLog))
+        self.__theGrous[
+            len(self.__theGrous) - 1].addClient(self.__theClients[len(self.__theClients) - 1])
 
     def testConnection(self):
         for theGroup in self.__theGrous:
@@ -154,14 +160,16 @@ class ProjektKaSi():
     def waitOrder(self, givenString, inputText):
         if self.__clientSelected:
             if self.selectedID <= len(self.__theClients):
-                theText = "You@" + self.__theClients[self.selectedID].getName() + ": "
+                theText = "You@" + \
+                    self.__theClients[self.selectedID].getName() + ": "
             else:
                 print("Error selected ID doesn't exist")
                 theText = "You@All: "
                 __clientSelected = False
         elif self.__groupSelected:
             if self.selectedID < len(self.__theGrous):
-                theText = "You@" + self.__theGrous[self.selectedID].getGroupName() + ": "
+                theText = "You@" + \
+                    self.__theGrous[self.selectedID].getGroupName() + ": "
             else:
                 print("Error selected ID doesn't exist")
                 theText = "You@All: "
@@ -213,12 +221,13 @@ class ProjektKaSi():
             elif Check == "lg":
                 i = 0
                 while i <= (len(self.__theGrous) - 1):
-                    value = "Group[" + str(i) + "]: " + self.__theGrous[i].getGroupName()
+                    value = "Group[" + str(i) + "]: " + \
+                        self.__theGrous[i].getGroupName()
                     print(value)
                     i = i + 1
             elif Check == "in":
                 return FALSE
-            elif Check=="tc":
+            elif Check == "tc":
                 self.testConnection()
             elif Check == "rc":
                 self.configEditor()
@@ -265,8 +274,10 @@ def positionItems():
     wDistance = 0.3 * wPercent
     hDistance = 0.3 * hPercent
     theHeight = 24
-    selectMenu.place(x=wDistance, y=hDistance, width=wPercent * 15, height=theHeight)
-    inputt.place(x=2 * wDistance + wPercent * 15, y=hDistance, width=wPercent * 75 - wDistance, height=theHeight)
+    selectMenu.place(x=wDistance, y=hDistance,
+                     width=wPercent * 15, height=theHeight)
+    inputt.place(x=2 * wDistance + wPercent * 15, y=hDistance,
+                 width=wPercent * 75 - wDistance, height=theHeight)
     button_Send.place(x=wPercent * 90 + 2 * wDistance, y=hDistance, width=wPercent * 10 - 3 * wDistance,
                       height=theHeight)
     # Last Row
@@ -274,8 +285,8 @@ def positionItems():
                       width=wPercent * 9 - 2 * wDistance, height=theHeight)
     button_ConsoleMode.place(x=wPercent * 81 - 3 * wDistance, y=height - (hPercent * 0.05 + theHeight) - hDistance,
                              width=wPercent * 10, height=theHeight)
-    button_editConfig.place(x = wPercent * 68 + wDistance, y = height - (hPercent * 0.05 + theHeight) - hDistance,
-                            width = wPercent * 12, height = theHeight)
+    button_editConfig.place(x=wPercent * 68 + wDistance, y=height - (hPercent * 0.05 + theHeight) - hDistance,
+                            width=wPercent * 12, height=theHeight)
 
 
 def refeshInterfaceArg(Variable):
@@ -316,16 +327,17 @@ def createList():
     return theList.keys()
 
 
-#----------------------------------------------------------------------
 def editConfig():
     global theList
     Kasi.waitOrder(True, "rc")
     theList.clear()
     createList()
-    selectMenu = ttk.OptionMenu(interface, selectedName, *theList, command=optionsChanged)
+    selectMenu = ttk.OptionMenu(
+        interface, selectedName, *theList, command=optionsChanged)
     positionItems()
     """"""
-    
+
+
 def declareButtons():
     global interface
     global inputt
@@ -339,17 +351,21 @@ def declareButtons():
     interface = Tk()
     inputt = ttk.Entry()
     selectedName = StringVar(interface)
-    selectMenu = ttk.OptionMenu(interface, selectedName, *theList, command=optionsChanged)
+    selectMenu = ttk.OptionMenu(
+        interface, selectedName, *theList, command=optionsChanged)
     selectedName.set("ALL")
     button_Quit = ttk.Button(interface, text="Quit", command=interface.destroy)
     button_Send = ttk.Button(interface, text="Send", command=sendOrder)
-    button_ConsoleMode = ttk.Button(interface, text="Console", command=setConsoleMode)
-    button_editConfig = ttk.Button(interface, text = "editConfig", command = editConfig)
+    button_ConsoleMode = ttk.Button(
+        interface, text="Console", command=setConsoleMode)
+    button_editConfig = ttk.Button(
+        interface, text="editConfig", command=editConfig)
 
-if __name__=="__main__":
+if __name__ == "__main__":
     if platform.system() == "Windows":
         import ctypes
-        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("KiliTec.Projekt_KaSi.1,0")
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
+            "KiliTec.Projekt_KaSi.1,0")
         ctypes.windll.kernel32.SetConsoleTitleA(b"Projekt KaSi")
     global theMode
     global Kasi
@@ -395,5 +411,3 @@ if __name__=="__main__":
         else:
             theLog.printMessage("Programm closed by User")
             sys.exit(0)
-
-

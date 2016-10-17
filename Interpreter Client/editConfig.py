@@ -6,11 +6,12 @@ from lib.groups import group
 from lib.log import log
 import platform
 
+
 def writetoConfig():
 	if platform == "Windows":
-		config=open("config\\clients.config","w")
+		config=open("config\\clients.config", "w")
 	else:
-		config=open("config/clients.config","w")
+		config=open("config/clients.config", "w")
 	for group in theGroup:
 		config.write("["+group.getGroupName()+"]\n")
 		for i in range(0,group.getClientAmount()):
