@@ -17,7 +17,7 @@ class networking_Connection:
                         [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]
             s.close()
         except OSError or socket.error:
-            self.__networkLog.printError("the Systen has no ip the server is going to halt now")
+            self.__networkLog.printError("the systen has no ip the server is going to halt now")
             exit()
 
     def returnclientIP(self):
