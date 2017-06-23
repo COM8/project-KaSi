@@ -17,7 +17,7 @@ class networking_Connection:
                         [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]
             s.close()
         except OSError or socket.error:
-            self.__networkLog.printError("The Systen has no IP the Server is going to Halt now")
+            self.__networkLog.printError("the Systen has no ip the server is going to halt now")
             exit()
 
     def returnclientIP(self):
@@ -42,7 +42,7 @@ class networking_Connection:
             s.listen(1)
             self.__aktiv=True
             theInterpreter = Interpreter()
-            self.__networkLog.printMessage("starting Server")
+            self.__networkLog.printMessage("starting server")
             while self.__aktiv:
                 try:
                     komm, addr = s.accept()
@@ -63,21 +63,21 @@ class networking_Connection:
                         break
                     theMessage = data.decode()
                     theAnswer = str(theInterpreter.newOrder(str(theMessage)))
-                    if not theAnswer=="Success":
+                    if not theAnswer=="success":
                         if not theAnswer=="stopServer":
                             print(theAnswer)
                         else:
-                            komm.send("Server stopped by Client".encode())
-                            self.__networkLog.printWarning("Server stopped by Client")
+                            komm.send("server stopped by client".encode())
+                            self.__networkLog.printWarning("server stopped by client")
                             self.deaktivateServer
                             break
 
 
-                    self.__networkLog.printMessage("Client sended: "+theMessage+"; Result: "+theAnswer)
+                    self.__networkLog.printMessage("client sended: "+theMessage+"; result: "+theAnswer)
                     komm.send(theAnswer.encode())
                     theAnswer = ""
             s.close()
         except KeyboardInterrupt:
-            self.__networkLog.printMessage("server Stopped with keyboard Interrupt")
+            self.__networkLog.printMessage("server Stopped with keyboard interrupt")
         except Exception as e:
             self.__networkLog.printError("unknown Error: "+str(e))

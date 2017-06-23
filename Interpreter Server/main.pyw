@@ -11,7 +11,7 @@ def manageMessage():
 
 def initProgramm():
     mainLog.printMessage("beginn Init")
-    message = "IP-Adress: " + network.returnserverIP()
+    message = "ip-adress: " + network.returnserverIP()
     mainLog.printMessage(message)
     theOs = platform.system()
     currentOs = "OS: " + theOs
@@ -23,8 +23,8 @@ def initProgramm():
     elif theOs == "Linux":
         pass
     else:
-        mainLog.printWarning("OS not Supportet")
-        mainLog.printWarning("System is going to halt now")
+        mainLog.printWarning("os not supportet")
+        mainLog.printWarning("system is going to halt now")
         exit()
 
 
@@ -33,16 +33,16 @@ if __name__=="__main__":
     global mainLog
     global network
     mainLog = log("Server.log", 1)
-    mainLog.printMessage("Starte Server")
-    mainLog.printMessage("init Network")
+    mainLog.printMessage("starting server")
+    mainLog.printMessage("init network")
     network = networking_Connection(mainLog)
     if network.initSuccess:
-        mainLog.printMessage("Network init succesful")
+        mainLog.printMessage("network init succesful")
     else:
-        mainLog.printError("Network couldn't be initialized")
-        mainLog.printMessage("System is going to Halt now")
+        mainLog.printError("network couldn't be initialized")
+        mainLog.printMessage("system is going to halt now")
         exit()
     initProgramm()
     network.loop()
-    mainLog.printMessage("System is going to Halt now")
+    mainLog.printMessage("system is going to halt now")
 
