@@ -41,7 +41,7 @@ class client(object):
             s.settimeout(0.1)
             s.connect((self.__theAddress, 50000))
             s.send(theOrder.encode())
-            self.theLog.printMessage("Sending: " + theOrder + "@" + self.__theName + ": " + self.__theAddress)
+            self.theLog.printMessage("sending: " + theOrder + "@" + self.__theName + ": " + self.__theAddress)
             theMessage = ""
             s.settimeout(0.01)
             startTime=datetime.now()
@@ -49,19 +49,19 @@ class client(object):
                 try:
                     theResponce=s.recv(4096).decode()
                     s.close()
-                    if theResponce == "Success":
+                    if theResponce == "success":
                         return True
                     else:
-                        self.theLog.printMessage(self.__theName + ": " + self.__theAddress + " Client respondet " + theMessage)
+                        self.theLog.printMessage(self.__theName + ": " + self.__theAddress + " client respondet " + theMessage)
                         return theResponce
                 except socket.error or socket.timeout:
                     pass
             else:
-                self.theLog.printError(self.__theName + ": " + self.__theAddress + " No responce Client timed out")
-                return "No Server responce Timeout error"
+                self.theLog.printError(self.__theName + ": " + self.__theAddress + " no responce client timed out")
+                return "no server responce timeout error"
         except socket.error or OSError:
             s.close()
-            self.theLog.printError(self.__theName + ": " + self.__theAddress + " Client socket locked, ist the Server on?")
+            self.theLog.printError(self.__theName + ": " + self.__theAddress + " client socket locked, ist the server on?")
             return False
 
     def getName(self):

@@ -21,8 +21,7 @@ class ProjektKaSi():
     selectedID = 0
 
     def __init__(self):
-        self.mainLog.printMessage("Starte Client")
-        print("Starte Client")
+        self.mainLog.printMessage("stating client")
         self.initProgramm()
         self.readConfig()
         self.testConnection()
@@ -30,18 +29,16 @@ class ProjektKaSi():
         __groupSelected = False
 
     def initProgramm(self):
-        self.mainLog.printMessage("Beginn Init")
+        self.mainLog.printMessage("beginn init")
         theOs = platform.system()
         currentOs = "OS: " + theOs
         self.mainLog.printMessage(currentOs)
         if theOs == "Windows" or theOs == "Linux":
-            print(theOs)
+            pass    
         else:
-            print("The OS isn't supported!")
-            self.mainLog.printWarning("OS not Supportet")
-            self.mainLog.printWarning("System is going to halt now")
-            print("System is going to halt now")
-            exit()
+            self.mainLog.printError("os not supportet")
+            self.mainLog.printMessage("system is going to halt now")
+            exit(-1)
 
     def configEditor(self):
         import editConfig
@@ -139,7 +136,7 @@ class ProjektKaSi():
 
     def testConnection(self):
         for theGroup in self.__theGrous:
-            print(str("Testing " + theGroup.getGroupName() + " :"))
+            print(str("testing " + theGroup.getGroupName() + " :"))
             theGroup.testClients()
 
     def doJob(self, theOrder):
@@ -162,7 +159,7 @@ class ProjektKaSi():
                 theText = "You@" + \
                     self.__theClients[self.selectedID].getName() + ": "
             else:
-                print("Error selected ID doesn't exist")
+                print("ERROR selected ID doesn't exist")
                 theText = "You@All: "
                 __clientSelected = False
         elif self.__groupSelected:
@@ -170,7 +167,7 @@ class ProjektKaSi():
                 theText = "You@" + \
                     self.__theGrous[self.selectedID].getGroupName() + ": "
             else:
-                print("Error selected ID doesn't exist")
+                print("ERROR selected ID doesn't exist")
                 theText = "You@All: "
                 self.__groupSelected = False
         else:
@@ -207,13 +204,13 @@ class ProjektKaSi():
                 try:
                     self.selectGroup(int(ID))
                 except ValueError:
-                    print("Entered ID not vaild")
+                    print("entered ID not vaild")
             elif Check == "sa":
                 self.selectAll()
             elif Check == "lc":
                 i = 0
                 while i <= (len(self.__theClients) - 1):
-                    value = "Client[" + str(i) + "]: " + self.__theClients[i].getName() + "@" + self.__theClients[
+                    value = "client[" + str(i) + "]: " + self.__theClients[i].getName() + "@" + self.__theClients[
                         i].getAddress()
                     print(value)
                     i = i + 1
@@ -249,7 +246,7 @@ def sendOrder():
     theInput = inputt.get()
     inputt.delete(0, END)
     if theInput == "" or theInput == " ":
-        messagebox.showinfo("Info", "Input Field can't be empty")
+        messagebox.showinfo("Info", "input Field can't be empty")
     else:
         Kasi.waitOrder(True, theInput)
 

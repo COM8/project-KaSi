@@ -16,7 +16,7 @@ class networking_Connection:
             self.serverIP = [(s.connect(('8.8.8.8', 80)), s.getsockname()[0], s.close()) for s in
                         [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]
             s.close()
-        except OSError:
+        except OSError or socket.error:
             self.__networkLog.printError("The Systen has no IP the Server is going to Halt now")
             exit()
 
@@ -46,7 +46,7 @@ class networking_Connection:
             while self.__aktiv:
                 try:
                     komm, addr = s.accept()
-                except OSError:
+                except OSError or socket.error:
                     self.deaktivateServer()
                     komm.close()
                     s.close()
@@ -55,7 +55,7 @@ class networking_Connection:
                 while True:
                     try:
                         data = komm.recv(4096)
-                    except:
+                    except OSError or socket.error:
                         break
                     if not data:
                         theMessage = ""

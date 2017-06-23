@@ -42,17 +42,20 @@ class log(object):
         return str(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
 
     def printWarning(self, warning):
+        print(warning)
         if self.doLog:
             message = self.getTime() + "\t[WARNING]\t" + warning
             self.writetoFile(message)
 
 
     def printError(self, fehler):
+        print(fehler)
         if self.doLog:
             message = self.getTime() + "\t[ ERROR ]\t" + fehler
             self.writetoFile(message)
 
     def printMessage(self, Message):
+        print(Message)
         if self.doLog:
             message = self.getTime() + "\t[MESSAGE]\t" + Message
             self.writetoFile(message)

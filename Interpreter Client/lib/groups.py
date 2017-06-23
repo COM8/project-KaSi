@@ -30,7 +30,7 @@ class group(object):
                 Message=theClient.getName()+ "@" + theClient.getAddress()+": Success"
             else:
                 Message=theClient.getName()+ "@" + theClient.getAddress()+": ERROR"
-            print(Message)
+            print("\t"+Message)
     def doJOB(self,theOrder):
         for theClient in self.__theClients:
             theAnswer=theClient.sendOrder(theOrder)
