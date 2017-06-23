@@ -70,7 +70,9 @@ class networking_Connection:
                             komm.send("server stopped by client".encode())
                             self.__networkLog.printWarning("server stopped by client")
                             self.deaktivateServer
-                            break
+                            s.close
+                            komm.close
+                            return
 
 
                     self.__networkLog.printMessage("client sended: "+theMessage+"; result: "+theAnswer)
