@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import platform
-import threading
 from collections import *
 from tkinter import *
 from tkinter import messagebox

@@ -8,7 +8,8 @@ class Interpreter:
         pass
 
     def __stopServer(self):
-        GPIO.cleanup()
+        if self.isRaspberry:
+            GPIO.cleanup()
 
 
     def newOrder(self, theOrder):

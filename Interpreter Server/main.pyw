@@ -12,23 +12,19 @@ def manageMessage():
 def initProgramm():
     mainLog.printMessage("Beginn Init")
     message = "IP-Adress: " + network.returnserverIP()
-    print(message)
     mainLog.printMessage(message)
     theOs = platform.system()
     currentOs = "OS: " + theOs
     mainLog.printMessage(currentOs)
     if theOs == "Windows":
-        print(theOs)
         import ctypes
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("KiliTec.Projekt_KaSi_Server.1,0")
         ctypes.windll.kernel32.SetConsoleTitleA(b"Projekt KaSi Server")
     elif theOs == "Linux":
-        print(theOs)
+        pass
     else:
-        print("The OS isn't supported!")
         mainLog.printWarning("OS not Supportet")
         mainLog.printWarning("System is going to halt now")
-        print("System is going to halt now")
         exit()
 
 
@@ -38,7 +34,6 @@ if __name__=="__main__":
     global network
     mainLog = log("Server.log", 1)
     mainLog.printMessage("Starte Server")
-    print("Starte Server")
     mainLog.printMessage("init Network")
     network = networking_Connection(mainLog)
     if network.initSuccess:
@@ -49,4 +44,5 @@ if __name__=="__main__":
         exit()
     initProgramm()
     network.loop()
+    mainLog.printMessage("System is going to Halt now")
 

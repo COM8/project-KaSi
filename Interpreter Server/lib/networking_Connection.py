@@ -41,7 +41,6 @@ class networking_Connection:
         self.__aktiv=True
         theInterpreter = Interpreter()
         self.__networkLog.printMessage("starting Server")
-        print("Server Aktiv")
         while self.__aktiv:
             try:
                 komm, addr = s.accept()
@@ -60,15 +59,13 @@ class networking_Connection:
                     komm.close()
                     break
                 theMessage = data.decode()
-                # print(theMessage)
-                # return str(data.decode())
                 theAnswer = str(theInterpreter.newOrder(str(theMessage)))
                 if not theAnswer=="Success":
                     if not theAnswer=="stopServer":
                         print(theAnswer)
                     else:
                         komm.send("Server stopped by Client".encode())
-                        self.__networkLog.printMessage("Server stopped by Client")
+                        self.__networkLog.printWarning("Server stopped by Client")
                         return ""
 
 
