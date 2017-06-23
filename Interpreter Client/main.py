@@ -361,52 +361,55 @@ def declareButtons():
         interface, text="editConfig", command=editConfig)
 
 if __name__ == "__main__":
-    if platform.system() == "Windows":
-        import ctypes
-        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
-            "KiliTec.Projekt_KaSi.1,0")
-        ctypes.windll.kernel32.SetConsoleTitleA(b"Projekt KaSi")
-    global theMode
-    global Kasi
-    global interface
-    global theLog
-    Kasi = ProjektKaSi()
-    theLog = Kasi.getLog()
-    theMode = 1
-    while True:
-        if theMode == 1:
-            declareButtons()
-            interface.minsize(650, 480)
-            theMode = 0
-            interface.title("Projekt KaSi")
-            if platform.system() == "Windows":
-                try:
-                    interface.wm_iconbitmap(r'lib\\icon\\icon.ico')
-                except:
-                    Kasi.createFolder("lib\\icon\\")
-                    print("Icon missing trying to downlaod it")
-                    if downloadFile("https://drive.google.com/uc?export=download&id=0B6y6X38yrgKkcGplc2xsUDNacTg",
-                                    "lib\\icon\\icon.ico"):
+    try:
+        if platform.system() == "Windows":
+            import ctypes
+            ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(
+                "KiliTec.Projekt_KaSi.1,0")
+            ctypes.windll.kernel32.SetConsoleTitleA(b"Projekt KaSi")
+        global theMode
+        global Kasi
+        global interface
+        global theLog
+        Kasi = ProjektKaSi()
+        theLog = Kasi.getLog()
+        theMode = 1
+        while True:
+            if theMode == 1:
+                declareButtons()
+                interface.minsize(650, 480)
+                theMode = 0
+                interface.title("Projekt KaSi")
+                if platform.system() == "Windows":
+                    try:
                         interface.wm_iconbitmap(r'lib\\icon\\icon.ico')
-            else:
-                try:
-                    interface.wm_iconbitmap(bitmap="@lib/icon/icon.xbm")
-                except:
-                    Kasi.createFolder("lib/icon/")
-                    print("Icon missing trying to downlaod it")
-                    if downloadFile("https://drive.google.com/uc?export=download&id=0B6y6X38yrgKkWmt6WHRvMGNoSEU",
-                                    "lib/icon/icon.xbm"):
+                    except:
+                        Kasi.createFolder("lib\\icon\\")
+                        print("Icon missing trying to downlaod it")
+                        if downloadFile("https://drive.google.com/uc?export=download&id=0B6y6X38yrgKkcGplc2xsUDNacTg",
+                                        "lib\\icon\\icon.ico"):
+                            interface.wm_iconbitmap(r'lib\\icon\\icon.ico')
+                else:
+                    try:
                         interface.wm_iconbitmap(bitmap="@lib/icon/icon.xbm")
-            positionItems()
-            interface.bind('<F5>', refeshInterfaceArg)
-            inputt.bind('<Return>', sendOrderArg)
-            interface.bind('<Configure>', refeshInterfaceArg)
-            interface.mainloop()
-        elif theMode == 2:
-            Zustand = True
-            while Zustand:
-                Zustand = Kasi.waitOrder(FALSE, "")
-            theMode = 1
-        else:
-            theLog.printMessage("Programm closed by User")
-            sys.exit(0)
+                    except:
+                        Kasi.createFolder("lib/icon/")
+                        print("Icon missing trying to downlaod it")
+                        if downloadFile("https://drive.google.com/uc?export=download&id=0B6y6X38yrgKkWmt6WHRvMGNoSEU",
+                                        "lib/icon/icon.xbm"):
+                            interface.wm_iconbitmap(bitmap="@lib/icon/icon.xbm")
+                positionItems()
+                interface.bind('<F5>', refeshInterfaceArg)
+                inputt.bind('<Return>', sendOrderArg)
+                interface.bind('<Configure>', refeshInterfaceArg)
+                interface.mainloop()
+            elif theMode == 2:
+                Zustand = True
+                while Zustand:
+                    Zustand = Kasi.waitOrder(FALSE, "")
+                theMode = 1
+            else:
+                theLog.printMessage("programm closed by User")
+                sys.exit(0)
+    except KeyboardInterrupt:
+        theLog.printMessage("client terminated by Keyboard Interrupt")
