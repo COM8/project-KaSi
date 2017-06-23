@@ -15,6 +15,7 @@ class networking_Connection:
             s.bind(("", 50000))
             self.serverIP = [(s.connect(('8.8.8.8', 80)), s.getsockname()[0], s.close()) for s in
                         [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]
+            s.close()
         except OSError:
             self.__networkLog.printError("The Systen has no IP the Server is going to Halt now")
             exit()
@@ -35,43 +36,48 @@ class networking_Connection:
         self.__aktiv = False
 
     def loop(self):
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind(("", 50000))
-        s.listen(1)
-        self.__aktiv=True
-        theInterpreter = Interpreter()
-        self.__networkLog.printMessage("starting Server")
-        while self.__aktiv:
-            try:
-                komm, addr = s.accept()
-            except :
-                self.deaktivateServer()
-                komm.close()
-                s.close()
-                break
-            while True:
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.bind(("", 50000))
+            s.listen(1)
+            self.__aktiv=True
+            theInterpreter = Interpreter()
+            self.__networkLog.printMessage("starting Server")
+            while self.__aktiv:
                 try:
-                    data = komm.recv(4096)
-                except:
-                    break
-                if not data:
-                    theMessage = ""
+                    komm, addr = s.accept()
+                except OSError:
+                    self.deaktivateServer()
                     komm.close()
+                    s.close()
+                    self.__networkLog.printError("unable to accept kommunikation terminating")
                     break
-                theMessage = data.decode()
-                theAnswer = str(theInterpreter.newOrder(str(theMessage)))
-                if not theAnswer=="Success":
-                    if not theAnswer=="stopServer":
-                        print(theAnswer)
-                    else:
-                        komm.send("Server stopped by Client".encode())
-                        self.__networkLog.printWarning("Server stopped by Client")
-                        return ""
+                while True:
+                    try:
+                        data = komm.recv(4096)
+                    except:
+                        break
+                    if not data:
+                        theMessage = ""
+                        komm.close()
+                        break
+                    theMessage = data.decode()
+                    theAnswer = str(theInterpreter.newOrder(str(theMessage)))
+                    if not theAnswer=="Success":
+                        if not theAnswer=="stopServer":
+                            print(theAnswer)
+                        else:
+                            komm.send("Server stopped by Client".encode())
+                            self.__networkLog.printWarning("Server stopped by Client")
+                            self.deaktivateServer
+                            break
 
 
-                self.__networkLog.printMessage("Client sended: "+theMessage+"; Result: "+theAnswer)
-                komm.send(theAnswer.encode())
-                theAnswer = ""
-                # print("[{}] {}".format(addr[0], data.decode()))
-                # nachricht = input("Antwort: ")
-                # komm.send(nachricht.encode())
+                    self.__networkLog.printMessage("Client sended: "+theMessage+"; Result: "+theAnswer)
+                    komm.send(theAnswer.encode())
+                    theAnswer = ""
+            s.close()
+        except KeyboardInterrupt:
+            self.__networkLog.printMessage("server Stopped with keyboard Interrupt")
+        except Exception as e:
+            self.__networkLog.printError("unknown Error: "+str(e))

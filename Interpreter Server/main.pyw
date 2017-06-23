@@ -10,7 +10,7 @@ def manageMessage():
 
 
 def initProgramm():
-    mainLog.printMessage("Beginn Init")
+    mainLog.printMessage("beginn Init")
     message = "IP-Adress: " + network.returnserverIP()
     mainLog.printMessage(message)
     theOs = platform.system()

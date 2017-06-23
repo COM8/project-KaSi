@@ -3,7 +3,7 @@ from time import gmtime, strftime
 
 
 class log(object):
-    """description of class"""
+    """Client logger"""
 
     def __init__(self, name,isOn):
         self.doLog=isOn
