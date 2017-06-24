@@ -1,4 +1,4 @@
-from time import sleep
+import time
 
 
 class Encrypter(object):
@@ -17,12 +17,11 @@ class Encrypter(object):
         import platform
         TheInfo = platform.uname()
         Key = ""
-        i = 0
         while len(Key) <= 8192:
             for information in TheInfo:
-                if randint(0,3) != 2 and len(information)>0:
-                    sleep(0.0001)
-                    Zeichen = str(information[randint(0,len(information)-1)])
+                if randint(0,3) != 2 and len(information) > 0:
+                    time.sleep(0.0001)
+                    Zeichen = str(information[randint(0, len(information)-1)])
                     if(Zeichen) != ' ':
                         Key = Key+Zeichen
                     if len(Key) <= 24:

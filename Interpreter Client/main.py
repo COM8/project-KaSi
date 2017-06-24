@@ -5,11 +5,9 @@ from collections import *
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
-from concurrent import futures
 from lib.clients import client
 from lib.groups import group
 from lib.log import log
-from os import cpu_count
 
 
 class ProjektKaSi():
@@ -34,7 +32,7 @@ class ProjektKaSi():
         currentOs = "OS: " + theOs
         self.mainLog.printMessage(currentOs)
         if theOs == "Windows" or theOs == "Linux":
-            pass    
+            pass  
         else:
             self.mainLog.printError("os not supportet")
             self.mainLog.printMessage("system is going to halt now")
@@ -210,8 +208,8 @@ class ProjektKaSi():
             elif Check == "lc":
                 i = 0
                 while i <= (len(self.__theClients) - 1):
-                    value = "client[" + str(i) + "]: " + self.__theClients[i].getName() + "@" + self.__theClients[
-                        i].getAddress()
+                    value = "client[" + str(i) + "]: " + self.__theClients[
+                    i].getName() + "@" + self.__theClients[i].getAddress()
                     print(value)
                     i = i + 1
             elif Check == "lg":
@@ -383,7 +381,8 @@ if __name__ == "__main__":
                     except:
                         Kasi.createFolder("lib\\icon\\")
                         print("Icon missing trying to downlaod it")
-                        if downloadFile("https://drive.google.com/uc?export=download&id=0B6y6X38yrgKkcGplc2xsUDNacTg",
+                        if downloadFile("https://drive.google.com/uc?export=",
+                            "download&id=0B6y6X38yrgKkcGplc2xsUDNacTg",
                                         "lib\\icon\\icon.ico"):
                             interface.wm_iconbitmap(r'lib\\icon\\icon.ico')
                 else:
@@ -392,8 +391,9 @@ if __name__ == "__main__":
                     except:
                         Kasi.createFolder("lib/icon/")
                         print("Icon missing trying to downlaod it")
-                        if downloadFile("https://drive.google.com/uc?export=download&id=0B6y6X38yrgKkWmt6WHRvMGNoSEU",
-                                        "lib/icon/icon.xbm"):
+                        if downloadFile("https://drive.google.com/uc?export=do",
+                            "wnload&id=0B6y6X38yrgKkWmt6WHRvMGNoSEUlib/icon",
+                            "/icon.xbm"):
                             interface.wm_iconbitmap(bitmap="@lib/icon/icon.xbm")
                 positionItems()
                 interface.bind('<F5>', refeshInterfaceArg)
