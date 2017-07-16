@@ -2,11 +2,11 @@ class group(object):
 
     __theClients = []
 
-    def __init__(self, name, groupID ):
+    def __init__(self, name, groupID):
         self.__theName = name
         self.__theGroup = groupID
         self.__theClients = []
-    
+
     def getGroupName(self):
         return self.__theName
 

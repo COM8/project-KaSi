@@ -12,10 +12,10 @@ def writetoConfig():
         config = open("config\\clients.config", "w")
     else:
         config = open("config/clients.config", "w")
-    for group in theGroup:
-        config.write("["+group.getGroupName()+"]\n")
-        for i in range(0,group.getClientAmount()):
-            config.write(" "+group.getClientName(i)+": "+group.getAddress(i)+"\n")
+    for Group in theGroup:
+        config.write("["+Group.getGroupName()+"]\n")
+        for i in range(0, Group.getClientAmount()):
+            config.write(" "+Group.getClientName(i)+": "+Group.getAddress(i)+"\n")
     config.close()
 
 
@@ -25,7 +25,7 @@ def unlockClient():
 
 def lockClient():
     ButtonClientOK.config(state=DISABLED)
-    
+ 
 
 def GroupOK():
     global GroupSelect
@@ -34,24 +34,23 @@ def GroupOK():
             if selectedOption != GroupNameInput.get():
                 theGroup[groupDict[selectedOption]].setGroupName(GroupNameInput.get())
         else:
-            newName=GroupNameInput.get()
+            newName = GroupNameInput.get()
             if newName != "NEW" or newName != "" or newName != " ":
                 createGroup(groupName=newName)
             else:
                 messagebox.showerror(title="Empty Name", message="The Group has no name")
     except KeyError:
-        newName=GroupNameInput.get()
-        if newName!="" or newName != " ":
+        newName = GroupNameInput.get()
+        if newName != "" or newName != " ":
             createGroup(groupName=newName)
         else:
             messagebox.showerror(title="Empty Name", message="The Group has no name")
     groupDict.clear()
-    GroupNameInput.delete(0,END)
+    GroupNameInput.delete(0, END)
     createGroupList()
     GroupSelect.grid_remove()
     GroupSelect = None
-    GroupSelect = ttk.OptionMenu(mainWindow, StringVar(mainWindow), "NEW",
-     *groupDict, command=groupOptionChanged)
+    GroupSelect = ttk.OptionMenu(mainWindow, StringVar(mainWindow), "NEW", *groupDict, command = groupOptionChanged)
     packWindow()
 
 
@@ -62,8 +61,8 @@ def groupOptionChanged(select):
         GroupNameInput.delete(0, END)
         GroupNameInput.insert(0, str(select))
     else:
-        ClientNameInput.delete(0,END)
-        ClientIPEntry.delete(0,END)
+        ClientNameInput.delete(0, END)
+        ClientIPEntry.delete(0, END)
         lockClient()
     selectedOption = select
     ClientSelect.grid_remove()
@@ -73,22 +72,22 @@ def groupOptionChanged(select):
     createClientList()
     createClientList()
     ClientSelect = ttk.OptionMenu(mainWindow, StringVar(mainWindow),
-     None, *clientDict, command=clientOptionChanged)
+     None, *clientDict, command = clientOptionChanged)
     packWindow()
 
 
 def clientOptionChanged(select):
     global selectedClientOption
     global ClientSelected
-    ClientIPEntry.delete(0,END)
-    ClientNameInput.delete(0,END)
+    ClientIPEntry.delete(0, END)
+    ClientNameInput.delete(0, END)
     if select != "NEW" or select != "NEW":
-        ClientNameInput.insert(0,str(select))
-        ClientIPEntry.insert(0,str(theGroup[groupDict[selectedOption]].getClientIP(clientDict[select])))
+        ClientNameInput.insert(0, str(select))
+        ClientIPEntry.insert(0, str(theGroup[groupDict[selectedOption]].getClientIP(clientDict[select])))
     else:
-        ClientNameInput.insert(0,str(select))
-        ClientIPEntry.insert(0,"NONE")
-    selectedClientOption=select
+        ClientNameInput.insert(0, str(select))
+        ClientIPEntry.insert(0, "NONE")
+    selectedClientOption = select
 
 
 def clientOK():
@@ -100,7 +99,7 @@ def clientOK():
                     theGroup[groupDict[selectedOption]].setClientIP(clientDict[selectedClientOption], ClientIPEntry.get())
                     theGroup[groupDict[selectedOption]].changeClientName(clientDict[selectedClientOption], ClientNameInput.get())
                 else:
-                    theGroup[groupDict[selectedOption]].addClient(client(name=ClientNameInput.get(), group=groupDict[selectedOption], Address=ClientIPEntry.get(), log =log(name="none",isOn=FALSE)))
+                    theGroup[groupDict[selectedOption]].addClient(client(name=ClientNameInput.get(), group=groupDict[selectedOption], Address=ClientIPEntry.get(), log =log(name="none", isOn=False)))
             except KeyError:
                 pass
         else:
@@ -119,7 +118,7 @@ def clientOK():
         messagebox.showerror(title="no Group selected", message="No Group Selected")
         ClientNameInput.delete(0, END)
         ClientIPEntry.delete(0, END)
-        
+
 
 def packWindow():
     labelGroupName.grid(row=0, column=1)
@@ -159,8 +158,7 @@ def readConfig():
             createFolder("config\\")
             File = open('config\\clients.config', 'a')
             File.close()
-            messagebox.showinfo("Missing config",
-                "No config Found. Createt an empty one")
+            messagebox.showinfo("Missing config", "No config Found. Createt an empty one")
             window.destroy()
             return
     else:
@@ -172,8 +170,7 @@ def readConfig():
             createFolder("config/")
             File = open('config/clients.config', 'a')
             File.close()
-            messagebox._show("Missing config",
-             "No config Found. Created an empty one")
+            messagebox._show("Missing config", "No config Found. Created an empty one")
             window.destroy()
             return
     theConfig = theconfigFile.read().splitlines()

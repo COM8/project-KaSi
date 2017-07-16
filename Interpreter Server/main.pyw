@@ -29,7 +29,7 @@ def initProgramm():
 
 
 # global variables
-if __name__=="__main__":
+if __name__ == "__main__":
     global mainLog
     global network
     mainLog = log("Server.log", 1)
@@ -45,4 +45,3 @@ if __name__=="__main__":
     initProgramm()
     network.loop()
     mainLog.printMessage("system is going to halt now")
-

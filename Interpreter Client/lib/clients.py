@@ -39,10 +39,10 @@ class client(object):
                                     self.__theName + ": " + self.__theAddress)
             theMessage = ""
             s.settimeout(0.01)
-            startTime=datetime.now()
-            while (datetime.now()-startTime).seconds<=1:
+            startTime = datetime.now()
+            while (datetime.now()-startTime).seconds <= 1:
                 try:
-                    theResponce=s.recv(4096).decode()
+                    theResponce = s.recv(4096).decode()
                     s.close()
                     if theResponce == "success":
                         return True
