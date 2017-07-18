@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import platform
 from collections import *
-from tkinter import *
+from tkinter import * 
 from tkinter import messagebox
 from tkinter import ttk
 from lib.clients import client
@@ -14,7 +14,7 @@ class ProjektKaSi():
     mainLog = log("client.log", True)
     __theGrous = []
     __theClients = []
-    __clientSelected = False
+    __clientSelected = Fals
     __groupSelected = False
     selectedID = 0
 
@@ -39,7 +39,7 @@ class ProjektKaSi():
             exit(-1)
 
     def configEditor(self):
-        import editConfig
+        import editConfig as test
         self.__theGrous.clear()
         self.__theClients.clear()
         self.readConfig()
@@ -326,8 +326,7 @@ def editConfig():
     Kasi.waitOrder(True, "rc")
     theList.clear()
     createList()
-    selectMenu = ttk.OptionMenu(
-        interface, selectedName, *theList, command=optionsChanged)
+    selectMenu = ttk.OptionMenu(interface, selectedName, *theList, command=optionsChanged)
     positionItems()
     """"""
 

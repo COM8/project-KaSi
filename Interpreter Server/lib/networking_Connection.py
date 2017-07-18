@@ -1,20 +1,17 @@
 ﻿import socket
 from Interpreter.main import Interpreter
-from lib.log import log
+
 
 class networking_Connection:
-    """description of class"""
-
-    def __init__(self,theLog):
-        self.__networkLog=theLog
+    def __init__(self, theLog):
+        self.__networkLog = theLog
         self.__clientIP = ""
         self.__aktiv = True
 
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.bind(("", 50000))
-            self.serverIP = [(s.connect(('8.8.8.8', 80)), s.getsockname()[0], s.close()) for s in
-                        [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]
+            self.serverIP = [(s.connect(('8.8.8.8', 80)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]
             s.close()
         except OSError or socket.error:
             self.__networkLog.printError("the systen has no ip the server is going to halt now")
@@ -40,7 +37,7 @@ class networking_Connection:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.bind(("", 50000))
             s.listen(1)
-            self.__aktiv=True
+            self.__aktiv = True
             theInterpreter = Interpreter()
             self.__networkLog.printMessage("starting server")
             while self.__aktiv:
@@ -63,8 +60,8 @@ class networking_Connection:
                         break
                     theMessage = data.decode()
                     theAnswer = str(theInterpreter.newOrder(str(theMessage)))
-                    if not theAnswer=="success":
-                        if not theAnswer=="stopServer":
+                    if not theAnswer == "success":
+                        if not theAnswer == "stopServer":
                             print(theAnswer)
                         else:
                             komm.send("server stopped by client".encode())
@@ -73,8 +70,6 @@ class networking_Connection:
                             s.close
                             komm.close
                             return
-
-
                     self.__networkLog.printMessage("client sended: "+theMessage+"; result: "+theAnswer)
                     komm.send(theAnswer.encode())
                     theAnswer = ""

@@ -1,4 +1,5 @@
 class theGPIO:
+
     def __init__(self):
         try:
             global theGPIO
@@ -9,6 +10,7 @@ class theGPIO:
             self.__theDirection = dict()
         except ImportError:
             self.__isRaspberry = False
+
     def theSetup(self, thePin, Direction):
         try:
             Pin = int(thePin)

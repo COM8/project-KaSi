@@ -252,7 +252,7 @@ def setIcon():
                 "B6y6X38yrgKkWmt6WHRvMGNoSEUlib/icon/icon.xbm"):
                 mainWindow.wm_iconbitmap(bitmap="@lib/icon/icon.xbm")
 
-
+print(__name__)
 if __name__ == "__main__" or __name__ == "editConfig":
     global theGroup
     global theClient

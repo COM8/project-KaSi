@@ -1,5 +1,4 @@
 ﻿import platform
-import subprocess
 import os.path
 
 
@@ -28,6 +27,7 @@ class System(object):
     def stopServer(self):
         from os import sys
         sys.exit(0)
+
     def lockPc(self):
         try:
             import ctypes
@@ -35,6 +35,7 @@ class System(object):
             return "Success"
         except:
             return "Error"
+
     def correctPath(self, direction):
         correctDirection = ""
         if self.__theOS == "Windows":
@@ -52,7 +53,6 @@ class System(object):
         return (True)
 
     def writetoCmd(self, stringOrder):
-        #return subprocess.getstatusoutput(stringOrder)
         return (os.popen(stringOrder).read())
 
     def shutdown(self):
@@ -67,6 +67,7 @@ class System(object):
 
     def logOUT(self):
         self.writetoCmd("shutdown -l")
+
     def getEnding(self, direciton):
         ending = ""
         for i in reversed(direciton):

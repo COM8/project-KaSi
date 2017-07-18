@@ -53,8 +53,7 @@ class client(object):
                 except socket.error or socket.timeout:
                     pass
             else:
-                self.theLog.printError(self.__theName + ": " +
-                 self.__theAddress + " no responce client timed out")
+                self.theLog.printError(self.__theName + ": " + self.__theAddress + " no responce client timed out")
                 return "no server responce timeout error"
         except socket.error or OSError:
             s.close()
